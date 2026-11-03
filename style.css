@@ -762,3 +762,107 @@ body #meuTime {
     box-sizing: border-box;
     margin: 0;
 }
+/* centralizar os botões anterior e próximo */
+
+#Resultado #navegacaoPokemon {
+    grid-column: 1 / -1;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 0 auto;
+}
+
+#Resultado #navegacaoPokemon button {
+    flex: 1;
+    max-width: 140px;
+}
+#montarTime {
+    display: block;
+    margin: 20px auto;
+    cursor: pointer;
+}
+
+#montarTime:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* visual do time vazio */
+
+#listaTime .time-vazio {
+    grid-column: 1 / -1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    min-height: 145px;
+    padding: 20px;
+
+    border: 2px dashed #d8c78e;
+    border-radius: 20px;
+
+    background: rgba(255, 253, 243, 0.55);
+    color: #8b8065;
+
+    font-size: 0.9rem;
+    font-weight: normal;
+    line-height: 1.5;
+    text-align: center;
+    text-transform: none;
+}
+
+/* pokébola decorativa */
+
+#listaTime .time-vazio::before {
+    content: "";
+    display: block;
+
+    width: 42px;
+    height: 42px;
+    border: 2px solid #42536a;
+    border-radius: 50%;
+
+    background:
+        radial-gradient(circle, white 0 5px, #42536a 5px 7px, transparent 7px),
+        linear-gradient(
+            to bottom,
+            #ed5555 0%,
+            #ed5555 46%,
+            #42536a 46%,
+            #42536a 54%,
+            #fff 54%,
+            #fff 100%
+        );
+
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.15);
+}
+
+
+/* ID*/
+
+#Resultado:has(h2) > .pokemon-id {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    z-index: 2;
+
+    padding: 6px 12px;
+    border-radius: 20px;
+
+    background-image: url("images/background.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+
+    color: #fff8dc;
+    font-family: "PKMN RBYGSC", monospace;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
