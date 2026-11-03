@@ -87,7 +87,7 @@ header {
 }
 
 header::after {
-    content: "POKÉDEX";
+    content: "POKEDEX";
     display: block;
     margin-top: 5px;
 
