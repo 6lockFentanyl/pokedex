@@ -14,25 +14,28 @@ let pokemon = null;
 
 const STAT_MAX = 200;
 
-// carrega o histórico salvo no navegador
+// Começa com o botão de adicionar escondido
+botaoAdicionarTime.style.display = "none";
+
+// Carrega o histórico salvo no navegador
 let historico = [];
 
 try {
     historico = JSON.parse(localStorage.getItem("historicoPokemon")) || [];
-} catch (error) {
+} catch (erro) {
     historico = [];
 }
 
-// carrega o time salvo no navegador
+// Carrega o time salvo no navegador
 let timePokemon = [];
 
 try {
     timePokemon = JSON.parse(localStorage.getItem("timePokemon")) || [];
-} catch (error) {
+} catch (erro) {
     timePokemon = [];
 }
 
-// pesquisa pelo formulário
+// Pesquisa pelo formulário
 formulario.addEventListener("submit", async function (event) {
     event.preventDefault();
 
@@ -45,17 +48,19 @@ formulario.addEventListener("submit", async function (event) {
             `<p class="erro">Digite um nome ou número válido!</p>`;
 
         document.body.style.removeProperty("--cor-tipo");
+        pokemon = null;
+        atualizarBotaoTime();
     }
 
     limparPesquisa();
 });
 
-// pesquisa um pokemon aleatório
+// Pesquisa um Pokémon aleatório
 botaoAleatorio.addEventListener("click", function () {
     buscarPokemon(NumeroAleatorio());
 });
 
-// busca as informações do pokemon
+// Busca as informações do Pokémon
 function buscarPokemon(nome) {
     nome = String(nome).toLowerCase().trim();
 
@@ -110,14 +115,17 @@ function buscarPokemon(nome) {
                 </div>
             `;
 
-            // botão para voltar um número na Pokédex
+            // Mostra o botão quando um Pokémon é exibido
+            botaoAdicionarTime.style.display = "block";
+
+            // Botão para voltar um número na Pokédex
             document.querySelector("#pokemonAnterior").addEventListener("click", function () {
                 if (data.id > 1) {
                     buscarPokemon(data.id - 1);
                 }
             });
 
-            // botão para avançar um número na Pokédex
+            // Botão para avançar um número na Pokédex
             document.querySelector("#pokemonProximo").addEventListener("click", function () {
                 if (data.id < 1025) {
                     buscarPokemon(data.id + 1);
@@ -134,11 +142,14 @@ function buscarPokemon(nome) {
 
             resultado.innerHTML = `<p class="erro">${error.message}</p>`;
 
+            // Esconde o botão se a pesquisa falhar
+            botaoAdicionarTime.style.display = "none";
+
             atualizarBotaoTime();
         });
 }
 
-// cria as estatísticas do pokemon
+// Cria as estatísticas do Pokémon
 function criarStat(data, statApi, classe, rotulo) {
     const valor = data.stats.find(
         stat => stat.stat.name === statApi
@@ -162,7 +173,7 @@ function criarStat(data, statApi, classe, rotulo) {
     `;
 }
 
-// adiciona o pokemon ao histórico
+// Adiciona o Pokémon ao histórico
 function adicionarHistorico(data) {
     historico = historico.filter(item => item.id !== data.id);
 
@@ -181,7 +192,7 @@ function adicionarHistorico(data) {
     renderizarHistorico();
 }
 
-// mostra o histórico na página
+// Mostra o histórico na página
 function renderizarHistorico() {
     listaHistorico.innerHTML = "";
 
@@ -209,7 +220,7 @@ function renderizarHistorico() {
     });
 }
 
-// adiciona o pokemon pesquisado ao time
+// Adiciona o Pokémon pesquisado ao time
 function adicionarAoTime() {
     if (!pokemon) return;
 
@@ -234,7 +245,7 @@ function adicionarAoTime() {
     atualizarBotaoTime();
 }
 
-// salva o time no navegador
+// Salva o time no navegador
 function salvarTime() {
     localStorage.setItem(
         "timePokemon",
@@ -242,7 +253,7 @@ function salvarTime() {
     );
 }
 
-// mostra os pokemon do time na página
+// Mostra os Pokémon do time na página
 function renderizarTime() {
     listaTime.innerHTML = "";
 
@@ -271,7 +282,7 @@ function renderizarTime() {
     });
 }
 
-// atualiza o botão que fica entre a carta e o time
+// Atualiza o botão que fica entre a carta e o time
 function atualizarBotaoTime() {
     if (!botaoAdicionarTime) return;
 
@@ -292,10 +303,10 @@ function atualizarBotaoTime() {
     }
 }
 
-// clique no botão de adicionar ao time
+// Clique no botão de adicionar ao time
 botaoAdicionarTime.addEventListener("click", adicionarAoTime);
 
-// remove um pokemon do time
+// Remove um Pokémon do time
 listaTime.addEventListener("click", function (event) {
     const botao = event.target.closest("button[data-id]");
 
@@ -310,7 +321,7 @@ listaTime.addEventListener("click", function (event) {
     atualizarBotaoTime();
 });
 
-// limpa o time inteiro
+// Limpa o time inteiro
 botaoLimparTime.addEventListener("click", function () {
     timePokemon = [];
 
@@ -319,7 +330,7 @@ botaoLimparTime.addEventListener("click", function () {
     atualizarBotaoTime();
 });
 
-// limpa apenas a tela, sem apagar o histórico ou o time
+// Limpa apenas a tela, sem apagar o histórico ou o time
 botaoLimparTela.addEventListener("click", function () {
     pokemon = null;
 
@@ -327,11 +338,14 @@ botaoLimparTela.addEventListener("click", function () {
 
     document.body.style.removeProperty("--cor-tipo");
 
+    // Esconde o botão ao limpar a tela
+    botaoAdicionarTime.style.display = "none";
+
     limparPesquisa();
     atualizarBotaoTime();
 });
 
-// apaga todo o histórico
+// Apaga todo o histórico
 botaoLimparHistorico.addEventListener("click", function () {
     historico = [];
 
@@ -340,14 +354,14 @@ botaoLimparHistorico.addEventListener("click", function () {
     renderizarHistorico();
 });
 
-// limpa o campo de pesquisa
+// Limpa o campo de pesquisa
 function limparPesquisa() {
     const campoNome = document.querySelector("#Buscar");
 
     campoNome.value = "";
 }
 
-// define a cor de cada tipo de pokemon
+// Define a cor de cada tipo de Pokémon
 function CorTipoDePokemon(tipo) {
     const tipos = {
         water: "#6390F0",
@@ -373,12 +387,12 @@ function CorTipoDePokemon(tipo) {
     return tipos[tipo] || "#CCCCCC";
 }
 
-// gera um número aleatório
+// Gera um número aleatório
 function NumeroAleatorio() {
     return Math.floor(Math.random() * 1025) + 1;
 }
 
-// mostra o histórico e o time salvos ao abrir a página
+// Mostra o histórico e o time salvos ao abrir a página
 renderizarHistorico();
 renderizarTime();
 atualizarBotaoTime();
