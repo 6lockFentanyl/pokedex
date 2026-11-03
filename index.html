@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PokéDex</title>
+
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <img id="logo" src="images/RotomDex.png" alt="RotomDex">
+    </header>
+
+    <form id="formulario">
+
+        <input
+            id="Buscar"
+            type="text"
+            placeholder="Digite o nome ou id do pokemon"
+        >
+
+        <button type="submit">Enviar</button>
+
+        <button id="Aleatorio" type="button">Aleatório</button>
+
+    </form>
+
+    <section id="Resultado"></section>
+
+    <button id="limparTela" type="button">
+        Limpar tela
+    </button>
+
+    <section id="historico">
+
+        <h2>Histórico de pesquisas</h2>
+
+        <ul id="listaHistorico"></ul>
+
+        <button id="limparHistorico" type="button">
+            Limpar histórico
+        </button>
+
+    </section>
+
+</body>
+</html>
